@@ -57,6 +57,7 @@ return {
             addParentheses = false,
             imports = {
               enabled = true,
+              requireStyle = "alwaysAbsolute"
             }
           },
           hover = {

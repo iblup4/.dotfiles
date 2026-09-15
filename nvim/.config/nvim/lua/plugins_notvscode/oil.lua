@@ -3,6 +3,10 @@ return {
   config = function()
     vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     require('oil').setup({
+      keymaps = {
+        ["<C-h>"] = false,        -- disable oil's split-open on Ctrl-h
+        ["<C-l>"] = false,        -- disable oil's refresh on Ctrl-l
+      },
       default_file_explorer = true,
       columns = {
         -- "icon",

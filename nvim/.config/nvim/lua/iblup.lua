@@ -32,7 +32,7 @@ require("lazy").setup({
   },
   { import = "plugins_always" },
   { import = "plugins_notvscode", cond = (function() return not vim.g.vscode end) },
-  { import = "plugins_vscode",    cond = (function() return vim.g.vscode end) },
+  -- { import = "plugins_vscode",    cond = (function() return vim.g.vscode end) },
 })
 
 vim.opt.numberwidth = 3
