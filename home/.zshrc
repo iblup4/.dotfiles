@@ -161,3 +161,8 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
+# belt-and-suspenders in case it's actually 1;3 in some contexts
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
