@@ -1,0 +1,54 @@
+set -g default-terminal "tmux-256color"
+set -as terminal-features ",xterm-256color:RGB"
+# set -as terminal-features 'xterm*:extkeys'
+# set -as terminal-features ",alacritty:RGB:usstyle"
+# set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'
+# set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'
+
+set -g mouse on
+set -g xterm-keys on
+set -s extended-keys on
+
+unbind C-b
+set -g prefix M-p
+bind M-p send-prefix
+
+bind '\' split-window -h
+bind - split-window -v
+unbind '"'
+unbind %
+
+set -g base-index 1
+
+unbind-key -T copy-mode-vi v
+bind 'v' copy-mode
+setw -g mode-keys vi
+bind-key -T copy-mode-vi 'v' send -X begin-selection     # Begin selection in copy mode.
+bind-key -T copy-mode-vi 'C-v' send -X rectangle-toggle  # Begin selection in copy mode.
+bind-key -T copy-mode-vi 'y' send -X copy-selection      # Yank selection in copy mode.
+
+set -g visual-activity off
+set -g visual-bell off
+set -g visual-silence off
+setw -g monitor-activity off
+set -g bell-action none
+
+set -g status-position bottom
+set -g status-justify left
+set -g status-style 'fg=green'
+
+set -g status-left ''
+set -g status-left-length 10
+
+set -g status-right ""
+
+setw -g window-status-current-format ' #I #W #F '
+
+unbind -n C-S-h
+unbind -n C-S-j
+unbind -n C-S-k
+unbind -n C-S-l
+unbind -n !
+
+set -s escape-time 0
+

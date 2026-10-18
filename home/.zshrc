@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
 # Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time Oh My Zsh is loaded, in which case,
@@ -84,7 +84,10 @@ PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}$(git_branch_name)%f
 
 plugins=(git)
 
-source $ZSH/oh-my-zsh.sh
+if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh"
+fi
+setopt prompt_subst
 
 # User configuration
 
@@ -136,33 +139,56 @@ export EDITOR='nvim'
 alias vim="nvim"
 alias v="nvim"
 
-export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="/snap/bin:$PATH"
-export PATH="/home/linuxbrew/.linuxbrew/bin/:$PATH"
+# Keep PATH entries unique, including when this file is sourced again.
+typeset -U path PATH
+dotfiles_paths=()
+case "$OSTYPE" in
+  darwin*)
+    dotfiles_paths=(/usr/local/sbin /usr/local/bin /opt/homebrew/sbin /opt/homebrew/bin)
+    ;;
+  linux*)
+    dotfiles_paths=(/snap/bin /home/linuxbrew/.linuxbrew/sbin /home/linuxbrew/.linuxbrew/bin)
+    ;;
+esac
+for dotfiles_bin in "${dotfiles_paths[@]}" "$HOME/.cargo/bin" "$HOME/.local/bin"; do
+  if [[ -d "$dotfiles_bin" ]]; then
+    path=("$dotfiles_bin" "${path[@]}")
+  fi
+done
+unset dotfiles_bin dotfiles_paths
+export PATH
 
-[ -f ~/.zshrc.local ] && source ~/.zshrc.local
-
-
-# Added by Antigravity CLI installer
-export PATH="/Users/iblup/.local/bin:$PATH"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/iblup/.miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/iblup/.miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/iblup/.miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/iblup/.miniconda3/bin:$PATH"
-    fi
+# Prefer an existing Conda installation; skip initialization when it is absent.
+dotfiles_conda="${CONDA_EXE:-$HOME/.miniconda3/bin/conda}"
+if [[ ! -x "$dotfiles_conda" ]]; then
+  dotfiles_conda="${commands[conda]:-}"
 fi
-unset __conda_setup
-# <<< conda initialize <<<
+if [[ -x "$dotfiles_conda" ]]; then
+  if dotfiles_conda_setup="$("$dotfiles_conda" shell.zsh hook 2>/dev/null)"; then
+    eval "$dotfiles_conda_setup"
+  elif [[ -r "${dotfiles_conda:h:h}/etc/profile.d/conda.sh" ]]; then
+    source "${dotfiles_conda:h:h}/etc/profile.d/conda.sh"
+  else
+    path=("${dotfiles_conda:h}" "${path[@]}")
+  fi
+fi
+unset dotfiles_conda dotfiles_conda_setup
 
 bindkey '^[[1;9C' forward-word
 bindkey '^[[1;9D' backward-word
 # belt-and-suspenders in case it's actually 1;3 in some contexts
 bindkey '^[[1;3C' forward-word
 bindkey '^[[1;3D' backward-word
+
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  source "$NVM_DIR/nvm.sh"
+fi
+if [[ -s "$NVM_DIR/bash_completion" ]]; then
+  source "$NVM_DIR/bash_completion"
+fi
+
+# Machine-specific settings take precedence over the shared configuration.
+if [[ -r "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
+fi

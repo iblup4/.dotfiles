@@ -1,0 +1,29 @@
+// Windows Terminal: Settings > Open JSON file.
+// Merge these entries into the existing "actions" and "keybindings" arrays.
+// Each shortcut sends tmux's Alt+P prefix, then the window number, matching
+// the Cmd+1-9 mappings in kitty.conf on macOS.
+// https://learn.microsoft.com/en-us/windows/terminal/customize-settings/actions#send-input
+{
+    "actions": [
+        { "id": "User.TmuxWindow1", "command": { "action": "sendInput", "input": "\u001bp1" } },
+        { "id": "User.TmuxWindow2", "command": { "action": "sendInput", "input": "\u001bp2" } },
+        { "id": "User.TmuxWindow3", "command": { "action": "sendInput", "input": "\u001bp3" } },
+        { "id": "User.TmuxWindow4", "command": { "action": "sendInput", "input": "\u001bp4" } },
+        { "id": "User.TmuxWindow5", "command": { "action": "sendInput", "input": "\u001bp5" } },
+        { "id": "User.TmuxWindow6", "command": { "action": "sendInput", "input": "\u001bp6" } },
+        { "id": "User.TmuxWindow7", "command": { "action": "sendInput", "input": "\u001bp7" } },
+        { "id": "User.TmuxWindow8", "command": { "action": "sendInput", "input": "\u001bp8" } },
+        { "id": "User.TmuxWindow9", "command": { "action": "sendInput", "input": "\u001bp9" } }
+    ],
+    "keybindings": [
+        { "keys": "ctrl+1", "id": "User.TmuxWindow1" },
+        { "keys": "ctrl+2", "id": "User.TmuxWindow2" },
+        { "keys": "ctrl+3", "id": "User.TmuxWindow3" },
+        { "keys": "ctrl+4", "id": "User.TmuxWindow4" },
+        { "keys": "ctrl+5", "id": "User.TmuxWindow5" },
+        { "keys": "ctrl+6", "id": "User.TmuxWindow6" },
+        { "keys": "ctrl+7", "id": "User.TmuxWindow7" },
+        { "keys": "ctrl+8", "id": "User.TmuxWindow8" },
+        { "keys": "ctrl+9", "id": "User.TmuxWindow9" }
+    ]
+}
