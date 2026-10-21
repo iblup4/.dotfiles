@@ -82,7 +82,10 @@ PROMPT='%F{green}%*%f %F{blue}%~%f %F{red}${vcs_info_msg_0_}$(git_branch_name)%f
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(git)
+export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+# Initialize NVM on the first Node command instead of delaying every shell.
+zstyle ':omz:plugins:nvm' lazy yes
+plugins=(git nvm)
 
 if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
   source "$ZSH/oh-my-zsh.sh"
@@ -179,14 +182,6 @@ bindkey '^[[1;9D' backward-word
 # belt-and-suspenders in case it's actually 1;3 in some contexts
 bindkey '^[[1;3C' forward-word
 bindkey '^[[1;3D' backward-word
-
-export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
-if [[ -s "$NVM_DIR/nvm.sh" ]]; then
-  source "$NVM_DIR/nvm.sh"
-fi
-if [[ -s "$NVM_DIR/bash_completion" ]]; then
-  source "$NVM_DIR/bash_completion"
-fi
 
 # Machine-specific settings take precedence over the shared configuration.
 if [[ -r "$HOME/.zshrc.local" ]]; then
