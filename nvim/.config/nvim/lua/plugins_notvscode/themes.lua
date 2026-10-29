@@ -54,6 +54,7 @@ return {
   },
   {
     "darianmorat/gruvdark.nvim",
+    main = "shibumi",
     lazy = false,
     priority = 1000,
     opts = {},

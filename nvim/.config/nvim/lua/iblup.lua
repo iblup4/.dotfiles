@@ -129,6 +129,10 @@ vim.keymap.set('n', '<C-S-l>', ':vertical resize +2<CR>', { silent = true })
 
 vim.keymap.set("i", "<S-Tab>", "<C-d>", opts)
 
+-- ctrl+backspace deletes word (terminals send it as <C-h>, neovide as <C-BS>)
+vim.keymap.set({ "i", "c" }, "<C-h>", "<C-w>", { noremap = true })
+vim.keymap.set({ "i", "c" }, "<C-BS>", "<C-w>", { noremap = true })
+
 vim.keymap.set('n', ']b', ':bnext<CR>', { noremap = true, silent = true, desc = 'Next buffer' })
 vim.keymap.set('n', '[b', ':bprevious<CR>', { noremap = true, silent = true, desc = 'Previous buffer' })
 
@@ -220,7 +224,7 @@ else
     end,
   })
 
-  vim.cmd.colorscheme("gruvdark")
+  vim.cmd.colorscheme("shibumi")
   -- vim.cmd.colorscheme("vscode")
   -- vim.cmd.colorscheme("gruber-darker")
   -- vim.cmd.colorscheme("rose-pine")
