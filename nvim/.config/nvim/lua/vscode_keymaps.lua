@@ -6,6 +6,14 @@ local vscode = require("vscode")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- Let VSCode own the viewport; nvim scrolling on its own desyncs the grid
+-- and search highlights get drawn as ghost text on the wrong lines
+vim.opt.scrolloff = 0
+
+-- remap so zz hits vscode-neovim's reveal override instead of scrolling nvim
+map("n", "n", "nzzzv", { remap = true, silent = true })
+map("n", "N", "Nzzzv", { remap = true, silent = true })
+
 -- Disable Space before assigning it as leader
 map("n", "<Space>", "<Nop>", opts)
 

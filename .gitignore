@@ -3,3 +3,7 @@
 .local
 .cache
 00Tree.html
+*.log
+*.bak
+*.orig
+*.local

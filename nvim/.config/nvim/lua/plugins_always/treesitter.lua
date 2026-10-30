@@ -5,7 +5,6 @@ return {
     lazy = false,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
-      "nvim-treesitter/nvim-treesitter-context",
     },
     opts = {
       ensure_installed = {
@@ -48,6 +47,9 @@ return {
       --   ts.install(to_install)
       -- end
 
+      -- vscode-neovim disables treesitter highlighting anyway; textobjects parse on demand
+      if vim.g.vscode then return end
+
       vim.api.nvim_create_autocmd("FileType", {
         group = vim.api.nvim_create_augroup("EnableTreesitterHighlighting", { clear = true }),
         desc = "Try to enable tree-sitter syntax highlighting",
@@ -58,29 +60,7 @@ return {
           end)
         end,
       })
-
-      require("treesitter-context").setup({
-        enable = true,
-        max_lines = 3,
-        multiwindow = false,
-        min_window_height = 0,
-        line_numbers = true,
-        multiline_threshold = 20,
-        trim_scope = "outer",
-        mode = "cursor",
-      })
     end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter-context",
-    event = "BufRead",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      event = "BufRead",
-    },
-    opts = {
-      multiwindow = true,
-    },
   },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",

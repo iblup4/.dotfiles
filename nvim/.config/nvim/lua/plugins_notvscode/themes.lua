@@ -53,8 +53,7 @@ return {
     end,
   },
   {
-    "darianmorat/gruvdark.nvim",
-    main = "shibumi",
+    "darianmorat/shibumi.nvim",
     lazy = false,
     priority = 1000,
     opts = {},
