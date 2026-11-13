@@ -55,7 +55,7 @@ vim.opt.expandtab = true
 vim.opt.list = true
 vim.opt.listchars = "tab:  "
 
-vim.opt.guicursor = "a:block-Cursor"
+-- vim.opt.guicursor = "a:block-Cursor"
 vim.api.nvim_set_hl(0, "Cursor", { reverse = true })
 -- vim.opt.guicursor = {
 --   'n-v-c:block-Cursor',
