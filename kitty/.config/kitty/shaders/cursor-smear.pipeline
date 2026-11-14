@@ -1,0 +1,10 @@
+# cursor-smear: port of Ghostty's cursor_smear.glsl (see cursor-smear.slang).
+# Needs cursor_trail > 0 in kitty.conf. Subscribing to cursor-trail-move makes
+# kitty skip drawing its built-in trail, so only the smear is shown.
+startgroup
+    animation_start cursor-trail-move
+    animation_stop cursor-trail-stop
+    # ~120 fps while the smear animates (kitty's default is 50 ms / 20 fps)
+    animation_step 8
+    shaders cursor-smear
+endgroup

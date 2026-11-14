@@ -13,7 +13,7 @@ Usage: ./install.sh [--dry-run] [--target DIR] [PACKAGE ...]
 
 Install dotfiles for macOS and Linux/WSL using GNU Stow.
 
-Packages: home tmux nvim kitty alacritty
+Packages: home tmux nvim kitty alacritty ghostty
 Defaults: home tmux nvim, plus kitty/alacritty when their commands are available.
 
 Options:
@@ -53,7 +53,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     *)
       case "$1" in
-        home|tmux|nvim|kitty|alacritty) packages+=("$1") ;;
+        home|tmux|nvim|kitty|alacritty|ghostty) packages+=("$1") ;;
         *) die "Unknown package: $1. Use --help to list packages." ;;
       esac
       shift

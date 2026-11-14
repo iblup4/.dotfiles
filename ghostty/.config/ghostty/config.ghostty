@@ -1,0 +1,105 @@
+# Ghostty config, ported from kitty/.config/kitty/kitty.conf
+# Reload: cmd+shift+,   Validate: ghostty +validate-config
+
+# --- Fonts ------------------------------------------------------------------
+font-family = Agave
+font-size = 26
+
+# kitty: disable_ligatures always
+font-feature = -calt
+font-feature = -liga
+font-feature = -dlig
+
+# kitty: modify_font cell_width -1 / cell_height -2px
+adjust-cell-width = -1
+adjust-cell-height = -2
+
+# kitty: macos_thicken_font 0.1 (scales differ; 0 is Ghostty's lightest thickening)
+font-thicken = true
+font-thicken-strength = 0
+
+# kitty: symbol_map ... JetBrainsMono Nerd Font
+font-codepoint-map = U+e000-U+e00a,U+ea60-U+ebeb,U+e0a0-U+e0c8,U+e0ca,U+e0cc-U+e0d7,U+e200-U+e2a9,U+e300-U+e3e3,U+e5fa-U+e6b7,U+e700-U+e8ef,U+ed00-U+efc1,U+f000-U+f2ff,U+f000-U+f2e0,U+f300-U+f381,U+f400-U+f533,U+f0001-U+f1af0=JetBrainsMono Nerd Font
+
+# --- Colors (Apprentice, as in kitty's current-theme.conf) -------------------
+background = #181818
+foreground = #c8c8c8
+cursor-color = #c7c7c7
+# kitty: cursor_text_color background
+cursor-text = cell-background
+selection-foreground = #3e3e3e
+selection-background = #c1ddff
+
+palette = 0=#252525
+palette = 1=#be7472
+palette = 2=#709772
+palette = 3=#989772
+palette = 4=#7199bc
+palette = 5=#727399
+palette = 6=#719899
+palette = 7=#7f7f7f
+palette = 8=#555555
+palette = 9=#ff9900
+palette = 10=#97bb98
+palette = 11=#fefdbc
+palette = 12=#9fbdde
+palette = 13=#989abc
+palette = 14=#6fbbbc
+palette = 15=#feffff
+
+# --- Cursor / shell ---------------------------------------------------------
+cursor-style = block
+# kitty: shell_integration no-cursor (keep the block cursor at the prompt)
+shell-integration-features = no-cursor
+
+# kitty: cursor_trail + custom_shaders cursor-trail-motion-blur
+# Smear trail on cursor moves (0.3s ease-out; set DURATION in the shader).
+# If a window ever goes black, comment this out and reload.
+custom-shader = ~/.config/ghostty/shaders/cursor_smear.glsl
+
+# --- Window -----------------------------------------------------------------
+# kitty: no padding + placement_strategy top-left (grid hugs the top-left edge)
+window-padding-x = 0
+window-padding-y = 0
+window-padding-balance = false
+
+# --- macOS ------------------------------------------------------------------
+macos-option-as-alt = true
+
+# --- Latency ----------------------------------------------------------------
+# kitty: input_delay 0 / repaint_delay 2 / sync_to_monitor no
+# Ghostty's only equivalent is turning vsync off. Its docs warn that this
+# "can cause kernel panics (macOS 14.4+)", so it is left on. Uncomment to
+# accept that risk for lower input latency (applies to new windows):
+# window-vsync = false
+
+# --- Keybinds ---------------------------------------------------------------
+# kitty: map ctrl+i send_text all \x1b[105;5u
+keybind = ctrl+i=text:\x1b[105;5u
+
+# kitty: map ctrl+shift+p send_text all ♠  (sends ♠)
+keybind = ctrl+shift+p=text:\u{2660}
+
+# kitty: map cmd+N send_text all \x1bpN
+# Ghostty binds both super+N and super+digit_N to goto_tab, so override both.
+keybind = super+1=text:\x1bp1
+keybind = super+digit_1=text:\x1bp1
+keybind = super+2=text:\x1bp2
+keybind = super+digit_2=text:\x1bp2
+keybind = super+3=text:\x1bp3
+keybind = super+digit_3=text:\x1bp3
+keybind = super+4=text:\x1bp4
+keybind = super+digit_4=text:\x1bp4
+keybind = super+5=text:\x1bp5
+keybind = super+digit_5=text:\x1bp5
+keybind = super+6=text:\x1bp6
+keybind = super+digit_6=text:\x1bp6
+keybind = super+7=text:\x1bp7
+keybind = super+digit_7=text:\x1bp7
+keybind = super+8=text:\x1bp8
+keybind = super+digit_8=text:\x1bp8
+keybind = super+9=text:\x1bp9
+keybind = super+digit_9=text:\x1bp9
+
+# kitty's no_op maps for ctrl+shift+h/j/k/l and ctrl+l aren't needed:
+# Ghostty has no default bindings on those keys, so they already reach the app.
